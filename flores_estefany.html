@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Para Estefany - Flores Amarillas</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            background: linear-gradient(135deg, #fff9e6 0%, #fff3cd 50%, #ffeaa7 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            text-align: center;
+            padding: 40px 0;
+            animation: fadeInDown 2s ease-out;
+        }
+
+        .header h1 {
+            font-size: 3.5rem;
+            color: #e17055;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #636e72;
+            font-style: italic;
+        }
+
+        .flower-decoration {
+            position: absolute;
+            font-size: 2rem;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .flower-decoration:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+        .flower-decoration:nth-child(2) { top: 20%; right: 8%; animation-delay: 1s; }
+        .flower-decoration:nth-child(3) { top: 60%; left: 3%; animation-delay: 2s; }
+        .flower-decoration:nth-child(4) { top: 70%; right: 5%; animation-delay: 3s; }
+        .flower-decoration:nth-child(5) { top: 40%; left: 90%; animation-delay: 4s; }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin: 50px 0;
+        }
+
+        .photo-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+            overflow: hidden;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .photo-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.2);
+        }
+
+        .photo-placeholder {
+            height: 250px;
+            background: linear-gradient(45deg, #fdcb6e, #e17055);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .photo-caption {
+            padding: 20px;
+            text-align: center;
+        }
+
+        .photo-caption h3 {
+            color: #2d3436;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .photo-caption p {
+            color: #636e72;
+            font-style: italic;
+        }
+
+        .message-section {
+            background: rgba(255,255,255,0.9);
+            border-radius: 25px;
+            padding: 40px;
+            margin: 50px 0;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .message-section h2 {
+            color: #e17055;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .message-section p {
+            color: #2d3436;
+            font-size: 1.2rem;
+            line-height: 1.8;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .bouquet {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            margin-bottom: 30px;
+            position: relative;
+            animation: bounceIn 2s ease-out;
+        }
+
+        .flower-stem {
+            font-size: 4rem;
+            margin: 0 5px;
+            position: relative;
+            animation: sway 3s ease-in-out infinite;
+        }
+
+        .flower-stem:nth-child(1) { 
+            animation-delay: 0s; 
+            transform: rotate(-15deg);
+        }
+        .flower-stem:nth-child(2) { 
+            animation-delay: 0.5s; 
+            transform: rotate(-7deg);
+        }
+        .flower-stem:nth-child(3) { 
+            animation-delay: 1s; 
+            transform: rotate(0deg);
+        }
+        .flower-stem:nth-child(4) { 
+            animation-delay: 1.5s; 
+            transform: rotate(7deg);
+        }
+        .flower-stem:nth-child(5) { 
+            animation-delay: 2s; 
+            transform: rotate(15deg);
+        }
+
+        .ribbon {
+            position: absolute;
+            bottom: -20px;
+            font-size: 2rem;
+            color: #e17055;
+            animation: pulse 2s ease-in-out infinite;
+        }
+            border: 3px solid #fdcb6e;
+            border-radius: 50%;
+            padding: 20px;
+            display: inline-block;
+            margin: 20px;
+            animation: rotate 20s linear infinite;
+        }
+
+        .sunflower {
+            font-size: 4rem;
+            color: #fdcb6e;
+        }
+
+        .hearts {
+            position: absolute;
+            font-size: 1.5rem;
+            color: #e17055;
+            animation: heartBeat 2s ease-in-out infinite;
+        }
+
+        .hearts:nth-child(odd) { top: 15%; right: 15%; animation-delay: 0.5s; }
+        .hearts:nth-child(even) { bottom: 15%; left: 15%; animation-delay: 1s; }
+
+        .footer {
+            text-align: center;
+            padding: 40px 0;
+            color: #636e72;
+            font-style: italic;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(5deg); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        @keyframes heartBeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .large-bouquet {
+            display: flex;
+            justify-content: center;
+            align-items: end;
+            margin-top: 30px;
+            position: relative;
+        }
+
+        .bouquet-flower {
+            font-size: 3rem;
+            margin: 0 3px;
+            animation: gentleSway 4s ease-in-out infinite;
+        }
+
+        .bouquet-flower:nth-child(odd) { animation-delay: 0s; }
+        .bouquet-flower:nth-child(even) { animation-delay: 1s; }
+
+        .bouquet-ribbon {
+            position: absolute;
+            bottom: -15px;
+            font-size: 1.8rem;
+            color: #e17055;
+            animation: ribbonFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes gentleSway {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-5px) rotate(2deg); }
+            75% { transform: translateY(-3px) rotate(-2deg); }
+        }
+
+        @keyframes ribbonFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+            .header h1 { font-size: 2.5rem; }
+            .gallery { grid-template-columns: 1fr; }
+            .message-section { padding: 20px; }
+            .flower-decoration { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="flower-decoration">🌻</div>
+    <div class="flower-decoration">🌼</div>
+    <div class="flower-decoration">🌻</div>
+    <div class="flower-decoration">🌼</div>
+    <div class="flower-decoration">🌻</div>
+    
+    <div class="hearts">💛</div>
+    <div class="hearts">💛</div>
+
+    <div class="container">
+        <header class="header">
+            <div class="bouquet">
+                <div class="flower-stem">🌻</div>
+                <div class="flower-stem">🌼</div>
+                <div class="flower-stem">🌻</div>
+                <div class="flower-stem">🌼</div>
+                <div class="flower-stem">🌻</div>
+                <div class="ribbon">🎀</div>
+            </div>
+            <h1>Para Ti, Estefany</h1>
+            <p>Un jardín de flores amarillas lleno de amor</p>
+        </header>
+
+        <div class="gallery">
+            <div class="photo-card">
+                <img src="fotos/foto1.jpg" alt="Estefany">
+                <div class="photo-caption">
+                    <h3>Tu Sonrisa Radiante</h3>
+                    <p>Como un girasol que siempre busca el sol</p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <img src="fotos/foto2.jpg" alt="Estefany">
+                <div class="photo-caption">
+                    <h3>Tu Sonrisa Radiante</h3>
+                    <p>Como un girasol que siempre busca el sol</p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <img src="fotos/foto3.jpg" alt="Estefany">
+                <div class="photo-caption">
+                    <h3>Tu Sonrisa Radiante</h3>
+                    <p>Como un girasol que siempre busca el sol</p>
+                </div>
+            </div>
+
+            <div class="photo-card">
+                <img src="fotos/foto4.jpg" alt="Estefany">
+                <div class="photo-caption">
+                    <h3>Tu Sonrisa Radiante</h3>
+                    <p>Como un girasol que siempre busca el sol</p>
+                </div>
+            </div>
+        </div>
+
+        <section class="message-section">
+            <div class="sunflower-border">
+                <div class="sunflower">🌻</div>
+            </div>
+            <h2>Mi Amor por Ti</h2>
+            <p>
+                Estefany, eres como un campo de flores amarillas que ilumina mi vida entera. 
+                Cada día contigo es como caminar entre girasoles bajo el sol dorado del amanecer. 
+                Tu sonrisa es más brillante que cualquier flor, y tu amor es el regalo más hermoso 
+                que la vida me ha dado. Estas flores amarillas son solo un pequeño reflejo de 
+                toda la luz y alegría que traes a mi mundo.
+            </p>
+            <div class="large-bouquet">
+                <div class="bouquet-flower">🌻</div>
+                <div class="bouquet-flower">🌼</div>
+                <div class="bouquet-flower">🌻</div>
+                <div class="bouquet-flower">🌼</div>
+                <div class="bouquet-flower">🌻</div>
+                <div class="bouquet-flower">🌼</div>
+                <div class="bouquet-flower">🌻</div>
+                <div class="bouquet-ribbon">🎀</div>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>Con todo mi amor, para la persona más especial de mi vida 💛</p>
+        </footer>
+    </div>
+
+    <script>
+        // Crear más flores flotantes dinámicamente
+        function createFloatingFlower() {
+            const flowers = ['🌻', '🌼', '🌸'];
+            const flower = document.createElement('div');
+            flower.innerHTML = flowers[Math.floor(Math.random() * flowers.length)];
+            flower.style.position = 'fixed';
+            flower.style.fontSize = '2rem';
+            flower.style.left = Math.random() * window.innerWidth + 'px';
+            flower.style.top = '-50px';
+            flower.style.pointerEvents = 'none';
+            flower.style.zIndex = '-1';
+            flower.style.animation = `fall ${3 + Math.random() * 3}s linear forwards`;
+            
+            document.body.appendChild(flower);
+            
+            setTimeout(() => {
+                flower.remove();
+            }, 6000);
+        }
+
+        // Crear efecto de flores cayendo
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fall {
+                to {
+                    transform: translateY(${window.innerHeight + 50}px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Crear flores cada 3 segundos
+        setInterval(createFloatingFlower, 3000);
+
+        // Efecto de hover en las tarjetas
+        document.querySelectorAll('.photo-card').forEach(card => {
+            card.addEventListener('mouseenter', () => {
+                card.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+            
+            card.addEventListener('mouseleave', () => {
+                card.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html>
